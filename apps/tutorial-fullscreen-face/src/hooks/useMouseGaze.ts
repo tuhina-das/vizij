@@ -12,6 +12,7 @@ function clamp(value: number, min = -1, max = 1) {
 
 export function useMouseGaze(
   enabled: boolean,
+  { flipX = false, flipY = false }: { flipX?: boolean; flipY?: boolean } = {},
 ): RefObject<HTMLDivElement | null> {
   const {
     setInput,
@@ -51,8 +52,8 @@ export function useMouseGaze(
       }
       const xRatio = (event.clientX - rect.left) / rect.width;
       const yRatio = (event.clientY - rect.top) / rect.height;
-      const normalizedX = clamp(xRatio * 2 - 1);
-      const normalizedY = clamp((1 - yRatio) * 2 - 1);
+      const normalizedX = clamp((xRatio * 2 - 1) * (flipX ? -1 : 1));
+      const normalizedY = clamp(((1 - yRatio) * 2 - 1) * (flipY ? -1 : 1));
 
       setEye("leftX", normalizedX);
       setEye("rightX", normalizedX);
@@ -78,7 +79,7 @@ export function useMouseGaze(
       target.removeEventListener("pointerleave", reset);
       target.removeEventListener("pointerup", reset, true);
     };
-  }, [controls, enabled, setInput]);
+  }, [controls, enabled, setInput, flipX, flipY]);
 
   return ref;
 }

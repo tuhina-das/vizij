@@ -10,7 +10,7 @@ import { usePoseHotkeys, POSE_HOTKEY_LAYOUT } from "./hooks/usePoseHotkeys";
 import "./styles.css";
 
 const faceAssetUrl = new URL(
-  "../../vizij-authoring/public/assets/Quori_Current_Extended.glb",
+  "../../vizij-authoring/public/assets/Hugo_Current_Extended.glb",
   import.meta.url,
 ).href;
 
@@ -42,7 +42,7 @@ function FaceRuntime() {
   const runtime = useVizijRuntime();
   const { ready, loading, error, stagePoseNeutral, assetBundle } = runtime;
   const poseConfig = assetBundle.pose?.config ?? null;
-  const gazeRef = useMouseGaze(ready);
+  const gazeRef = useMouseGaze(ready, { flipX: true });
   const { bindings } = usePoseHotkeys(poseConfig, ready);
   const [hintsVisible, setHintsVisible] = useState(false);
 
