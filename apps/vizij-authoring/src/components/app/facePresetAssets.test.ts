@@ -5,7 +5,10 @@ import {
 } from "./facePresetAssets";
 
 describe("facePresetAssets", () => {
-  it("surfaces Quori latest and Toasty current in the preset grid", () => {
+  it("surfaces Hugo, Quori, and Toasty assets in the preset grid", () => {
+    const hugoCurrent = FACE_PRESET_GRID_OPTIONS.find(
+      (preset) => preset.id === "hugo:basic",
+    );
     const quoriLatest = FACE_PRESET_GRID_OPTIONS.find(
       (preset) => preset.id === "quori:latest",
     );
@@ -13,6 +16,12 @@ describe("facePresetAssets", () => {
       (preset) => preset.id === "toasty:basic",
     );
 
+    expect(hugoCurrent).toMatchObject({
+      label: "Hugo Current",
+      filename: "Hugo_Current.glb",
+      available: true,
+      referenceCompatible: false,
+    });
     expect(quoriLatest).toMatchObject({
       label: "Quori Latest",
       filename: "Quori_Current_Extended.glb",

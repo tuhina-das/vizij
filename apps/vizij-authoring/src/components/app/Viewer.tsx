@@ -861,7 +861,7 @@ export function Viewer({
           >
             <div className="flex flex-col gap-2">
               <p className="text-text-primary font-medium text-lg">
-                See What Vizij Can Do
+                See What Vizij Can Do 😁
               </p>
               <p className="text-sm max-w-md mx-auto text-text-muted">
                 Move your cursor over the face, tap an emotion, or make it speak

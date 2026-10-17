@@ -12,7 +12,7 @@ const DEMO_BUNDLE: VizijAssetBundle = {
   namespace: "empty-demo",
   glb: {
     kind: "url",
-    src: "/assets/Quori_Current_Extended.glb",
+    src: "/assets/Hugo_Current.glb",
     aggressiveImport: true,
   },
   pose: {
@@ -40,7 +40,7 @@ function EmptyStateDemoBody() {
       <div className="h-52 w-full sm:h-60">
         <RuntimeFaceFrame variant="fill" pointerTargetRef={gaze.ref} />
       </div>
-      <DemoEmotionRow />
+      <DemoEmotionRow initialEmotion="curious-grin" />
       <DemoVoicePanel />
     </div>
   );

@@ -72,6 +72,7 @@ describe("DemoEmotionRow", () => {
       "Sleepy",
       "Surprise",
       "Angry",
+      "Curious Grin",
     ]);
   });
 
@@ -97,6 +98,31 @@ describe("DemoEmotionRow", () => {
       "rig/face/poses/pose_happy.weight",
       { float: 0 },
       { duration: 0.35 },
+    );
+  });
+
+  it("offers a composite curious grin", () => {
+    const { container } = render(<DemoEmotionRow />);
+    const curiousGrin = container.querySelector(
+      '[data-testid="empty-state-demo-emotion-curious-grin"]',
+    ) as HTMLButtonElement;
+    expect(curiousGrin).toBeTruthy();
+
+    fireEvent.click(curiousGrin);
+    expect(animateValueSpy).toHaveBeenCalledWith(
+      "rig/face/poses/pose_happy.weight",
+      { float: 0.6 },
+      { duration: 0.25 },
+    );
+    expect(animateValueSpy).toHaveBeenCalledWith(
+      "rig/face/poses/pose_surprise.weight",
+      { float: 0.28 },
+      { duration: 0.25 },
+    );
+    expect(animateValueSpy).toHaveBeenCalledWith(
+      "rig/face/poses/pose_concerned.weight",
+      { float: 0.12 },
+      { duration: 0.25 },
     );
   });
 

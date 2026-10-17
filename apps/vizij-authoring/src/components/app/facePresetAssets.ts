@@ -1,4 +1,4 @@
-export type FacePresetCharacterId = "quori" | "toasty";
+export type FacePresetCharacterId = "hugo" | "quori" | "toasty";
 export type FacePresetVariantId = "blender-export" | "basic" | "latest";
 
 interface FacePresetDefinition {
@@ -25,6 +25,17 @@ const FACE_PRESET_ROWS: readonly {
   label: string;
   presets: readonly FacePresetDefinition[];
 }[] = [
+  {
+    id: "hugo",
+    label: "Hugo",
+    presets: [
+      {
+        variantId: "basic",
+        variantLabel: "Current",
+        filename: "Hugo_Current.glb",
+      },
+    ],
+  },
   {
     id: "quori",
     label: "Quori",
@@ -66,6 +77,7 @@ const FACE_PRESET_ROWS: readonly {
 
 // Keep this list aligned with the preset files that currently exist.
 const AVAILABLE_PRESET_FILENAMES = new Set<string>([
+  "Hugo_Current.glb",
   "Quori_Latest_Blender_Export.glb",
   "Quori_Current.glb",
   "Quori_Current_Extended.glb",

@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
-import type { RefObject } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   mapNormalizedControlValue,
   resolveFaceControls,
@@ -10,39 +9,63 @@ function clamp(value: number, min = -1, max = 1) {
   return Math.min(Math.max(value, min), max);
 }
 
+type GazeOptions = {
+  flipX?: boolean;
+  flipY?: boolean;
+  /** Logs missing eye controls and the first few writes. Turn off when done debugging. */
+  debug?: boolean;
+};
+
 export function useMouseGaze(
   enabled: boolean,
-  { flipX = false, flipY = false }: { flipX?: boolean; flipY?: boolean } = {},
-): RefObject<HTMLDivElement | null> {
+  { flipX = false, flipY = false, debug = false }: GazeOptions = {},
+): (node: HTMLDivElement | null) => void {
   const {
     setInput,
     faceId: runtimeFaceId,
     assetBundle,
     inputConstraints,
   } = useVizijRuntime();
-  const ref = useRef<HTMLDivElement>(null);
+
+  // Track the element in state (via a callback ref) so the effect re-runs
+  // when the div actually mounts, instead of silently bailing on a null ref.
+  const [target, setTarget] = useState<HTMLDivElement | null>(null);
+  const ref = useCallback((node: HTMLDivElement | null) => {
+    setTarget(node);
+  }, []);
+
   const controls = useMemo(
     () => resolveFaceControls(assetBundle, runtimeFaceId, inputConstraints),
     [assetBundle, inputConstraints, runtimeFaceId],
   );
 
   useEffect(() => {
-    if (!enabled) {
+    if (!enabled || !target) {
       return;
     }
-    const target = ref.current;
-    if (!target) {
-      return;
+
+    if (debug) {
+      console.log("[gaze] attached to", target, "eyes:", controls.eyes);
     }
+
+    let logged = 0;
+    const warned = new Set<string>();
 
     const setEye = (path: keyof typeof controls.eyes, value: number) => {
       const control = controls.eyes[path];
       if (!control) {
+        if (debug && !warned.has(path)) {
+          warned.add(path);
+          console.warn(`[gaze] no control found for eyes.${String(path)}`);
+        }
         return;
       }
-      setInput(control.path, {
-        float: mapNormalizedControlValue(control, clamp(value)),
-      });
+      const mapped = mapNormalizedControlValue(control, clamp(value));
+      if (debug && logged < 8) {
+        logged += 1;
+        console.log("[gaze] set", control.path, mapped);
+      }
+      setInput(control.path, { float: mapped });
     };
 
     const handlePointer = (event: PointerEvent) => {
@@ -61,6 +84,8 @@ export function useMouseGaze(
       setEye("rightY", normalizedY);
     };
 
+    // Eyes recenter only when the pointer leaves the face area.
+    // (Previously `pointerup` also reset, which snapped the eyes to center on every click.)
     const reset = () => {
       setEye("leftX", 0);
       setEye("leftY", 0);
@@ -71,15 +96,13 @@ export function useMouseGaze(
     target.addEventListener("pointermove", handlePointer, true);
     target.addEventListener("pointerdown", handlePointer, true);
     target.addEventListener("pointerleave", reset);
-    target.addEventListener("pointerup", reset, true);
 
     return () => {
       target.removeEventListener("pointermove", handlePointer, true);
       target.removeEventListener("pointerdown", handlePointer, true);
       target.removeEventListener("pointerleave", reset);
-      target.removeEventListener("pointerup", reset, true);
     };
-  }, [controls, enabled, setInput, flipX, flipY]);
+  }, [controls, enabled, target, setInput, flipX, flipY, debug]);
 
   return ref;
 }

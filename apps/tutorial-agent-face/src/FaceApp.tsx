@@ -25,7 +25,7 @@ import {
   resolveVisiblePrograms,
   shouldEnableDebugPoseFallback,
 } from "./utils/speechRuntime";
-import "./styles.css";
+// import "./styles.css";
 
 const faceAssetUrl = new URL(
   "../../vizij-authoring/public/assets/Quori_Current_Extended.glb",
