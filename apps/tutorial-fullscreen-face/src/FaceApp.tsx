@@ -95,9 +95,9 @@ function FaceRuntime() {
             throw new Error(`Control "${path}" must have a finite number.`);
           }
           setInput(path, { float: rawValue });
-          const controlMatch = new RegExp(
-            `^rig/${faceId}/(.+?)/value$`,
-          ).exec(path);
+          const controlMatch = new RegExp(`^rig/${faceId}/(.+?)/value$`).exec(
+            path,
+          );
           if (controlMatch) {
             const controlId = controlMatch[1]?.split("/").join("_");
             if (controlId?.startsWith("brow_")) {

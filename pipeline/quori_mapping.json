@@ -25,66 +25,66 @@
   },
   "targets": {
     "rig/quori_latest/propsrig/mouth/jawud/value": [
-      {"feature": "jaw_open", "scale": 1.0, "offset": 0.0},
-      {"feature": "surprise", "scale": 0.35, "offset": 0.0}
+      { "feature": "jaw_open", "scale": 1.0, "offset": 0.0 },
+      { "feature": "surprise", "scale": 0.35, "offset": 0.0 }
     ],
     "rig/quori_latest/propsrig/mouth/sidewide/value": [
-      {"feature": "smile", "scale": 0.65, "offset": 0.0},
-      {"feature": "frown", "scale": -0.73, "offset": 0.0}
+      { "feature": "smile", "scale": 0.65, "offset": 0.0 },
+      { "feature": "frown", "scale": -0.73, "offset": 0.0 }
     ],
     "rig/quori_latest/propsrig/mouth/sideud/value": [
-      {"feature": "smile", "scale": 1.0, "offset": 0.0},
-      {"feature": "frown", "scale": -2.6, "offset": 0.0}
+      { "feature": "smile", "scale": 1.0, "offset": 0.0 },
+      { "feature": "frown", "scale": -2.6, "offset": 0.0 }
     ],
     "rig/quori_latest/propsrig/mouth/translation/y": [
-      {"feature": "smile", "scale": 0.65, "offset": 0.0},
-      {"feature": "frown", "scale": -2.6, "offset": 0.0}
+      { "feature": "smile", "scale": 0.65, "offset": 0.0 },
+      { "feature": "frown", "scale": -2.6, "offset": 0.0 }
     ],
     "rig/quori_latest/mouth/smile": [
-      {"feature": "smile", "scale": 1.0, "offset": 0.0},
-      {"feature": "frown", "scale": -0.31, "offset": 0.0}
+      { "feature": "smile", "scale": 1.0, "offset": 0.0 },
+      { "feature": "frown", "scale": -0.31, "offset": 0.0 }
     ],
     "rig/quori_latest/propsrig/mouth/ltsneer/value": [
-      {"feature": "frown", "scale": -1.0, "offset": 0.0}
+      { "feature": "frown", "scale": -1.0, "offset": 0.0 }
     ],
     "rig/quori_latest/propsrig/mouth/lbsneer/value": [
-      {"feature": "frown", "scale": -1.0, "offset": 0.0}
+      { "feature": "frown", "scale": -1.0, "offset": 0.0 }
     ],
     "rig/quori_latest/propsrig/mouth/rtsneer/value": [
-      {"feature": "frown", "scale": -1.0, "offset": 0.0}
+      { "feature": "frown", "scale": -1.0, "offset": 0.0 }
     ],
     "rig/quori_latest/propsrig/mouth/rbsneer/value": [
-      {"feature": "frown", "scale": -1.0, "offset": 0.0}
+      { "feature": "frown", "scale": -1.0, "offset": 0.0 }
     ],
     "rig/quori_latest/brow/lbrow_inud/value": [
-      {"feature": "brow_inner_pull", "scale": 1.0, "offset": 0.0}
+      { "feature": "brow_inner_pull", "scale": 1.0, "offset": 0.0 }
     ],
     "rig/quori_latest/brow/lbrow_inlr/value": [
-      {"feature": "brow_inner_pull", "scale": 0.69, "offset": 0.0}
+      { "feature": "brow_inner_pull", "scale": 0.69, "offset": 0.0 }
     ],
     "rig/quori_latest/brow/lbrow_midud/value": [
-      {"feature": "brow_inner_pull", "scale": 1.0, "offset": 0.0}
+      { "feature": "brow_inner_pull", "scale": 1.0, "offset": 0.0 }
     ],
     "rig/quori_latest/brow/lbrow_outud/value": [
-      {"feature": "brow_inner_pull", "scale": 0.57, "offset": 0.0}
+      { "feature": "brow_inner_pull", "scale": 0.57, "offset": 0.0 }
     ],
     "rig/quori_latest/brow/rbrow_inud/value": [
-      {"feature": "brow_inner_pull", "scale": 1.0, "offset": 0.0}
+      { "feature": "brow_inner_pull", "scale": 1.0, "offset": 0.0 }
     ],
     "rig/quori_latest/brow/rbrow_inlr/value": [
-      {"feature": "brow_inner_pull", "scale": 0.76, "offset": 0.0}
+      { "feature": "brow_inner_pull", "scale": 0.76, "offset": 0.0 }
     ],
     "rig/quori_latest/brow/rbrow_midud/value": [
-      {"feature": "brow_inner_pull", "scale": 1.0, "offset": 0.0}
+      { "feature": "brow_inner_pull", "scale": 1.0, "offset": 0.0 }
     ],
     "rig/quori_latest/brow/rbrow_outud/value": [
-      {"feature": "brow_inner_pull", "scale": 0.5, "offset": 0.0}
+      { "feature": "brow_inner_pull", "scale": 0.5, "offset": 0.0 }
     ],
     "rig/quori_latest/propsrig/ltlid/lidcurve/value": [
-      {"feature": "right_eye_openness", "scale": -1.0, "offset": 1.0}
+      { "feature": "right_eye_openness", "scale": -1.0, "offset": 1.0 }
     ],
     "rig/quori_latest/propsrig/rtlid/lidcurve/value": [
-      {"feature": "left_eye_openness", "scale": -1.0, "offset": 1.0}
+      { "feature": "left_eye_openness", "scale": -1.0, "offset": 1.0 }
     ]
   }
 }
