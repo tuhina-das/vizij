@@ -12,7 +12,7 @@ const DEMO_BUNDLE: VizijAssetBundle = {
   namespace: "empty-demo",
   glb: {
     kind: "url",
-    src: "/assets/Hugo_Current.glb",
+    src: "/assets/Quori_Current_Extended.glb",
     aggressiveImport: true,
   },
   pose: {

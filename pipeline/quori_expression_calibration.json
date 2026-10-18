@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source": "Quori_Current_Extended.glb authored emotion poses",
+  "expressions": {
+    "neutral": {},
+    "happy": {
+      "brow_lbrow_inud_value": -0.22,
+      "brow_lbrow_midud_value": -0.18,
+      "brow_rbrow_inud_value": -0.16,
+      "brow_rbrow_midud_value": -0.16
+    },
+    "sad": {
+      "brow_lbrow_midud_value": 0.17,
+      "brow_lbrow_outud_value": 0.29,
+      "brow_rbrow_midud_value": 0.16,
+      "brow_rbrow_outud_value": 0.34
+    },
+    "concerned": {
+      "brow_lbrow_midud_value": 0.57,
+      "brow_lbrow_outud_value": 0.41,
+      "brow_rbrow_inud_value": -0.08,
+      "brow_rbrow_midud_value": 0.51,
+      "brow_rbrow_outud_value": 0.34
+    },
+    "surprise": {
+      "brow_lbrow_inud_value": -0.42,
+      "brow_lbrow_midud_value": -0.53,
+      "brow_lbrow_outud_value": -0.57,
+      "brow_rbrow_inud_value": -0.42,
+      "brow_rbrow_midud_value": -0.48,
+      "brow_rbrow_outud_value": -0.51
+    },
+    "anger": {
+      "brow_lbrow_inlr_value": 0.69,
+      "brow_lbrow_inud_value": 1.0,
+      "brow_lbrow_midud_value": 1.0,
+      "brow_lbrow_outud_value": 0.57,
+      "brow_rbrow_inlr_value": 0.76,
+      "brow_rbrow_inud_value": 1.0,
+      "brow_rbrow_midud_value": 1.0,
+      "brow_rbrow_outud_value": 0.5
+    }
+  }
+}

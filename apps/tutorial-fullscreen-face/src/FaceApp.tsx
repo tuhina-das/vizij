@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import type { ChangeEvent } from "react";
 import {
   VizijRuntimeProvider,
   VizijRuntimeFace,
@@ -11,7 +12,7 @@ import { usePoseHotkeys, POSE_HOTKEY_LAYOUT } from "./hooks/usePoseHotkeys";
 import "./styles.css";
 
 const faceAssetUrl = new URL(
-  "../../vizij-authoring/public/assets/Hugo_Current.glb",
+  "../../vizij-authoring/public/assets/Quori_Current_Extended.glb",
   import.meta.url,
 ).href;
 
@@ -54,6 +55,7 @@ function FaceRuntime() {
   const gazeRef = useMouseGaze(ready, { flipX: true });
   const { bindings } = usePoseHotkeys(poseConfig, ready);
   const [hintsVisible, setHintsVisible] = useState(false);
+  const [mappingStatus, setMappingStatus] = useState<string | null>(null);
 
   const handlePointerMove = useCallback(() => {
     setHintsVisible(true);
@@ -62,6 +64,69 @@ function FaceRuntime() {
   const { setInput } = runtime;
   const [w, setW] = useState(0);
   const firstPose = poseConfig?.poses?.[0];
+
+  const handleMappingFile = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      event.target.value = "";
+      if (!file) return;
+      try {
+        const document = JSON.parse(await file.text()) as {
+          controls?: Record<string, unknown>;
+          targets?: Record<string, unknown>;
+        };
+        if (!document.controls || typeof document.controls !== "object") {
+          if (document.targets && typeof document.targets === "object") {
+            throw new Error(
+              "You selected quori_mapping.json, which defines mapping rules. " +
+                "Run map_to_quori.py first, then upload the generated *.quori.json file.",
+            );
+          }
+          throw new Error(
+            "This JSON is not a Quori result file. Upload a generated *.quori.json file containing controls.",
+          );
+        }
+        const entries = Object.entries(document.controls);
+        if (entries.length === 0) {
+          throw new Error("The controls object is empty.");
+        }
+        for (const [path, rawValue] of entries) {
+          if (typeof rawValue !== "number" || !Number.isFinite(rawValue)) {
+            throw new Error(`Control "${path}" must have a finite number.`);
+          }
+          setInput(path, { float: rawValue });
+          const controlMatch = new RegExp(
+            `^rig/${faceId}/(.+?)/value$`,
+          ).exec(path);
+          if (controlMatch) {
+            const controlId = controlMatch[1]?.split("/").join("_");
+            if (controlId?.startsWith("brow_")) {
+              setInput(`rig/${faceId}/override/${controlId}/enabled`, {
+                float: 1,
+              });
+              setInput(`rig/${faceId}/override/${controlId}/value`, {
+                float: rawValue,
+              });
+            }
+          }
+        }
+        const overrideCount = entries.filter(([path]) =>
+          path.includes("/brow/"),
+        ).length;
+        setMappingStatus(
+          `Applied ${entries.length} Quori controls` +
+            (overrideCount > 0
+              ? ` (${overrideCount} brow overrides enabled).`
+              : "."),
+        );
+      } catch (error) {
+        setMappingStatus(
+          error instanceof Error ? error.message : "Could not apply mapping.",
+        );
+      }
+    },
+    [faceId, setInput],
+  );
 
   useEffect(() => {
     if (!ready || !firstPose) return;
@@ -184,6 +249,29 @@ function FaceRuntime() {
           )}
         </div>
       )}
+      <label
+        style={{
+          position: "fixed",
+          right: 20,
+          bottom: 20,
+          zIndex: 10,
+          padding: 10,
+          background: "rgba(0, 0, 0, 0.65)",
+        }}
+      >
+        Apply generated Quori controls JSON
+        <div style={{ marginTop: 4, maxWidth: 280, fontSize: 12 }}>
+          Upload the <code>*.quori.json</code> output from{" "}
+          <code>map_to_quori.py</code>, not <code>quori_mapping.json</code>.
+        </div>
+        <input
+          type="file"
+          accept="application/json,.json"
+          onChange={handleMappingFile}
+          style={{ display: "block", marginTop: 6 }}
+        />
+        {mappingStatus && <div>{mappingStatus}</div>}
+      </label>
       <input
         type="range"
         min={0}

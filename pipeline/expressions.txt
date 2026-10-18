@@ -1,0 +1,8 @@
+# One expression per line. Lines beginning with # are ignored.
+neutral
+happy, smiling broadly with raised cheeks
+sad, with an exaggerated pout and tears
+angry, with sharply furrowed brows
+surprised, with wide eyes and an open mouth
+fearful, tense and alarmed
+disgusted, with a wrinkled nose
